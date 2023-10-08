@@ -40,7 +40,7 @@ module.exports = {
         newbotProfile.guildsProfile.push({
                 'channelId': channel.value,
                 'userTag': user.value,
-                'tagDate': new Date().getTime().toString(),
+                'tagDate': new Date().getTime(),
                 'tagHistory': [],
             }
         );

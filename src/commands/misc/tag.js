@@ -1,4 +1,3 @@
-const { timeStamp } = require('console');
 const { ApplicationCommandOptionType, EmbedBuilder } = require('discord.js');
 
 module.exports = {
@@ -90,14 +89,14 @@ module.exports = {
         newbotProfile.guildsProfile.push({
             'channelId': guildProfile.channelId,
             'userTag': targetUser.user.id,
-            'tagDate': new Date().getTime().toString(),
+            'tagDate': new Date().getTime(),
             'tagHistory': newTagHistory,
         });
 
-        //fs.writeFile(bot_profile_json, JSON.stringify(newbotProfile), (err, result) =>
-        //{
-        //    if (err) console.log("error", err);
-        //})
+        fs.writeFile(bot_profile_json, JSON.stringify(newbotProfile), (err, result) =>
+        {
+            if (err) console.log("error", err);
+        })
 
         const channel = await client.channels.cache.get(guildProfile.channelId);
         const previousUser = await client.users.cache.get(guildProfile.userTag);
@@ -123,13 +122,16 @@ module.exports = {
         .setTitle(`👀 ${(targetUser.user.globalName === null ? targetUser.user.username : targetUser.user.globalName).toUpperCase()} HAVE BEEN TAG!`)
         .setImage(`${gifs[Math.floor(Math.random() * gifs.length)]}`)
         .addFields(
-            {name: 'Previous tagger:', value: (previousUser.globalName === null ? previousUser.username : previousUser.globalName)},
+            {name: 'Previous Tagger:', value: (previousUser.globalName === null ? previousUser.username : previousUser.globalName)},
             {name: 'Time Spend Tagger:', value: `${tagTimeSpendTimeStamp.hours}h : ${tagTimeSpendTimeStamp.minutes}min : ${tagTimeSpendTimeStamp.secondes}sec`})
         .setColor(0xFFFFFF);
 
         if (description !== null) {
             embed.addFields({name: 'Description:', value: description.value});
         }
+
+        const messages = await channel.messages.fetch();
+        await channel.bulkDelete(messages);
 
         channel.send({ embeds: [embed] });
         channel.send(`<@${targetUser.user.id}> you have been tag, it's now you turn to tag someone else !`);
