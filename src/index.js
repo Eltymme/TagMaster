@@ -1,9 +1,11 @@
 require('dotenv').config();
-const Discord = require('discord.js');
-const client = new Discord.Client(new Discord.Intents(32767));
+const { Client, IntentsBitField } = require('discord.js');
+const eventHandler = require('./handlers/eventHandler');
 
-client.once('ready', () => {
-    console.log(`${client.user.tag} is ready!`);
-});
+const client = new Client({
+    intents: IntentsBitField.Flags.Guilds,
+})
+
+eventHandler(client);
 
 client.login(process.env.TOKEN);
