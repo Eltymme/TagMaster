@@ -25,8 +25,7 @@ module.exports = {
 
         newbotProfile = JSON.parse(botProfile);
         
-        for (let i = 0; i < newbotProfile.guildsProfile.length; i++)
-        {
+        for (let i = 0; i < newbotProfile.guildsProfile.length; i++) {
             currentGuildProfile = newbotProfile.guildsProfile[i];
 
             if (!currentGuildProfile.guildId === interaction.guild_id) continue;
@@ -52,7 +51,7 @@ module.exports = {
         });
 
         const embed = new EmbedBuilder ()
-        .setTitle('✅ Bot setup has been successfully done on the server!')
+        .setTitle('✅ BOT SETUP HAS BEEN SUCCESSFULLY DONE ON THE SERVER!')
         .addFields({name: 'Message channel:', value: channel.channel.name}, {name: 'Start user:', value: user.user.globalName})
         .setColor(0xFFFFFF);
 
