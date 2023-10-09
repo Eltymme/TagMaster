@@ -78,11 +78,6 @@ module.exports = {
             return;
         } 
             
-        interaction.reply({
-            content: `${targetUser.user.username} as been successfully added as the new tagger!`,
-            ephemeral: true,
-        });
-            
         const newTagHistory = guildProfile.tagHistory;
         guildProfile.tagHistory.push({userId: guildProfile.userTag, spendTime: tagTimeSpend})
 
@@ -119,7 +114,7 @@ module.exports = {
         ]
 
         const embed = new EmbedBuilder ()
-        .setTitle(`👀 ${(targetUser.user.globalName === null ? targetUser.user.username : targetUser.user.globalName).toUpperCase()} HAVE BEEN TAG!`)
+        .setTitle('👀 SOMEONE HAVE BEEN TAG!')
         .setImage(`${gifs[Math.floor(Math.random() * gifs.length)]}`)
         .addFields(
             {name: 'Previous Tagger:', value: (previousUser.globalName === null ? previousUser.username : previousUser.globalName)},
@@ -134,6 +129,10 @@ module.exports = {
         await channel.bulkDelete(messages);
 
         channel.send({ embeds: [embed] });
-        channel.send(`<@${targetUser.user.id}> you have been tag, it's now you turn to tag someone else !`);
+        targetUser.user.send(`<@${targetUser.user.id}> you have been tag, it's now you turn to tag someone else !`);
+        interaction.reply({
+            content: `${targetUser.user.username} as been successfully added as the new tagger!`,
+            ephemeral: true,
+        });
     }
 }

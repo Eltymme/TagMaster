@@ -52,7 +52,7 @@ module.exports = {
 
         const embed = new EmbedBuilder ()
         .setTitle('✅ BOT SETUP HAS BEEN SUCCESSFULLY DONE ON THE SERVER!')
-        .addFields({name: 'Message channel:', value: channel.channel.name}, {name: 'Start user:', value: user.user.globalName})
+        .addFields({name: 'Message channel:', value: channel.channel.name})
         .setColor(0xFFFFFF);
 
         interaction.reply({ embeds: [embed] });
