@@ -8,4 +8,6 @@ const client = new Client({
 
 eventHandler(client);
 
+console.log(process.env.TOKEN);
+
 client.login(process.env.TOKEN);
